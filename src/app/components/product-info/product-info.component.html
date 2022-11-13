@@ -5,10 +5,9 @@
     <p>{{ category }}</p>
 
     <p>{{ rating }}</p>
-    <div *ngIf="images$ | async as images">
-      <div *ngFor="let it of images">
-        <img src="{{ it }}" alt="" />
-      </div>
+
+    <div *ngFor="let it of images">
+      <img src="{{ it }}" alt="" />
     </div>
 
     <br />

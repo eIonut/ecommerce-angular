@@ -6,7 +6,11 @@
   {{ notFound }}
 </p>
 <div class="searched-product-container" *ngIf="products$ | async as products">
-  <div class="searched-product" *ngFor="let item of products">
+  <div
+    class="searched-product"
+    (click)="navigateToProduct(item)"
+    *ngFor="let item of products"
+  >
     <h4>{{ item.title }}</h4>
     <img class="searched-product-img" src="{{ item.thumbnail }}" alt="" />
   </div>

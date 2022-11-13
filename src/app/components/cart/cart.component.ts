@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {
   distinctUntilChanged,
-  filter,
-  isEmpty,
   map,
   Observable,
-  startWith,
-  switchMap,
-  take,
+  pluck,
+  reduce,
+  scan,
   tap,
 } from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
@@ -23,6 +21,8 @@ export class CartComponent implements OnInit {
   public zeroItems = false;
   public cartItems$!: Observable<Product[]>;
   public cartItemsNumber$!: Observable<number>;
+  public cartTotal$!: Observable<number>;
+  public total!: number;
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
@@ -30,6 +30,13 @@ export class CartComponent implements OnInit {
     this.cartItemsNumber$ = this.cartItems$.pipe(
       map((item) => item.length),
       distinctUntilChanged()
+    );
+
+    this.cartTotal$ = this.cartService.cartTotalObs$.pipe(
+      map(
+        (item) => item.reduce((total, price) => total + price, 0),
+        tap((it) => console.log(it))
+      )
     );
   }
 

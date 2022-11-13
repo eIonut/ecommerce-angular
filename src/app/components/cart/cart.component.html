@@ -1,5 +1,6 @@
 <div class="cart-container">
-  <div (click)="showCart()">Cart</div>
+  <div>Cart</div>
+  <span *ngIf="(cartItemsNumber$ | async) !== 0" (click)="showCart()">^</span>
   <div *ngIf="cartItemsNumber$ | async as cartItemsNumber">
     <p *ngIf="cartItemsNumber === 1">
       {{ cartItemsNumber }}<span> item in the cart.</span>
@@ -21,9 +22,14 @@
     <div *ngIf="cartItems$ | async as cartItems">
       <div *ngFor="let item of cartItems">
         <p>{{ item.title }}</p>
-        <p>{{ item.price }}</p>
+        <p>{{ item.price | currency }}</p>
         <span (click)="deleteItem(item.id)">DEL</span>
       </div>
+
+      <div *ngIf="cartTotal$ | async as cartTotal">
+        <p><strong>Total:</strong>{{ cartTotal | currency }}</p>
+      </div>
+      <button>Proceed to checkout</button>
     </div>
   </div>
 </div>

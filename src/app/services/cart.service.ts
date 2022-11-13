@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, pluck, reduce } from 'rxjs';
 import { Product } from '../interfaces/product.interface';
 @Injectable({
   providedIn: 'root',
@@ -9,11 +9,16 @@ export class CartService {
     Product[]
   >([]);
   public cartItemsObs$: Observable<Product[]> = this.cartItems$.asObservable();
+
+  public cartTotal$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(
+    []
+  );
+  public cartTotalObs$: Observable<number[]> = this.cartTotal$.asObservable();
+
   constructor() {}
 
   public addToCart(product: Product) {
     const newId = product.id + (Math.random() + 1 * 10);
-    console.log(newId);
     const newProduct: Product = {
       ...product,
       id: newId,
@@ -21,6 +26,9 @@ export class CartService {
 
     const updatedItems = [...this.cartItems$.getValue(), newProduct];
     this.cartItems$.next(updatedItems);
+
+    const price = [...this.cartTotal$.getValue(), newProduct.price];
+    this.cartTotal$.next(price);
   }
 
   public getCartItems(): Observable<Product[]> {

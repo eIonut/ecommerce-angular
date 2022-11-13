@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
+    this.httpService.subject.next('');
     this.products$ = this.httpService.allProducts$.pipe(
       debounceTime(500),
       distinctUntilChanged(),

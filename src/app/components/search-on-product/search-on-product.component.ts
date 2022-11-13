@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -21,7 +22,7 @@ export class SearchOnProductComponent implements OnInit {
   public products$!: Observable<Product[]>;
   public notFound = '';
   public isEmpty = true;
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private router: Router) {}
 
   ngOnInit(): void {
     this.products$ = this.httpService.singlePageProducts$.pipe(
@@ -47,5 +48,10 @@ export class SearchOnProductComponent implements OnInit {
       this.isEmpty = false;
       this.httpService.searchOnProduct.next(value);
     }
+  }
+
+  public navigateToProduct(item: Product) {
+    console.log(item.id);
+    this.router.navigate([[], item.id]);
   }
 }

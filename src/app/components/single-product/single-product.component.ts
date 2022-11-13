@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, tap, take } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { Product } from 'src/app/interfaces/product.interface';
 import { CartService } from 'src/app/services/cart.service';
@@ -21,12 +21,11 @@ export class SingleProductComponent implements OnInit {
   ngOnInit(): void {
     this.httpService.searchOnProduct.next(null);
 
-    this.route.params
-      .pipe(take(1))
-      .subscribe((params) => (this.id = params['id']));
-    this.product$ = this.httpService
-      .getSingleProduct(this.id)
-      .pipe(tap((it) => console.log(it)));
+    this.product$ = this.route.params.pipe(
+      switchMap((data) => {
+        return this.httpService.getSingleProduct(data['id']);
+      })
+    );
   }
 
   public addToCart(product: Product) {
