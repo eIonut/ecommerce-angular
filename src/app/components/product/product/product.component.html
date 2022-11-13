@@ -1,0 +1,10 @@
+<div (click)="navigateToItem()" class="product-container">
+  <img class="product-thumbnail" src="{{ image }}" alt="" />
+  <div class="product-info">
+    <p>{{ title }}</p>
+    <p>{{ price | currency }}</p>
+    <p>{{ rating }}</p>
+    <p>{{ brand }}</p>
+    <ng-content></ng-content>
+  </div>
+</div>

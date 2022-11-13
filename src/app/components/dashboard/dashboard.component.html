@@ -1,0 +1,16 @@
+<app-search-product></app-search-product>
+<p class="no-product-found-p" *ngIf="(products$ | async)?.length == 0">
+  {{ notFound }}
+</p>
+
+<div class="product-container" *ngIf="products$ | async as products">
+  <app-product
+    *ngFor="let item of products"
+    [id]="item.id"
+    [price]="item.price"
+    [title]="item.title"
+    [rating]="item.rating"
+    [brand]="item.brand"
+    [image]="item.thumbnail"
+  ></app-product>
+</div>

@@ -1,0 +1,15 @@
+<div class="container">
+  <div *ngIf="product$ | async as product">
+    <app-product-info
+      class="single-product"
+      [title]="product.title"
+      [brand]="product.brand"
+      [price]="product.price"
+      [image]="product.thumbnail"
+      [rating]="product.rating"
+      [id]="product.id"
+      [images]="product.images"
+    >
+    </app-product-info>
+  </div>
+</div>

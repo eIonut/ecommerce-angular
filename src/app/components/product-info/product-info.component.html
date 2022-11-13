@@ -1,0 +1,25 @@
+<div class="product-container">
+  <div>
+    <p>{{ title }}</p>
+    <p>{{ id }}</p>
+    <p>{{ category }}</p>
+
+    <p>{{ rating }}</p>
+    <div *ngIf="images$ | async as images">
+      <div *ngFor="let it of images">
+        <img src="{{ it }}" alt="" />
+      </div>
+    </div>
+
+    <br />
+    <br />
+    <img src="{{ image }}" alt="" />
+    <p>{{ price | currency }}</p>
+    <p>{{ stock }}</p>
+    <p>{{ brand }}</p>
+  </div>
+
+  <div>
+    {{ description }}
+  </div>
+</div>

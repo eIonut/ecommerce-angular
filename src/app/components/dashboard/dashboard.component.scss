@@ -1,0 +1,16 @@
+.product-container {
+  width: 80%px;
+  margin: auto;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
+}
+
+.no-product-found-p {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+}
