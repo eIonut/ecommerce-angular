@@ -5,6 +5,8 @@
     <p>{{ price | currency }}</p>
     <p>{{ rating }}</p>
     <p>{{ brand }}</p>
+    <button (click)="addToCart($event)">Add to cart</button>
+
     <ng-content></ng-content>
   </div>
 </div>

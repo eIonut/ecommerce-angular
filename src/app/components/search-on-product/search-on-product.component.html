@@ -1,0 +1,13 @@
+<input class="search-input" type="text" (keyup)="searchProduct($event)" />
+<p
+  class="no-product-found-p"
+  *ngIf="(products$ | async)?.length == 0 && !isEmpty"
+>
+  {{ notFound }}
+</p>
+<div class="searched-product-container" *ngIf="products$ | async as products">
+  <div class="searched-product" *ngFor="let item of products">
+    <h4>{{ item.title }}</h4>
+    <img class="searched-product-img" src="{{ item.thumbnail }}" alt="" />
+  </div>
+</div>

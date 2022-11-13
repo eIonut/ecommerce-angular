@@ -6,8 +6,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HttpService {
   public subject: BehaviorSubject<any> = new BehaviorSubject('');
-
   public allProducts$ = this.subject.asObservable();
+
+  public searchOnProduct: BehaviorSubject<any> = new BehaviorSubject('');
+  public singlePageProducts$ = this.searchOnProduct.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +19,12 @@ export class HttpService {
 
   public setNextValue(value: string) {
     this.subject.next(`https://dummyjson.com/products/search?q=${value}`);
+  }
+
+  public setSingleProductNextValue(value: string) {
+    this.searchOnProduct.next(
+      `https://dummyjson.com/products/search?q=${value}`
+    );
   }
 
   public searchProducts(query: string): Observable<any> {

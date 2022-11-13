@@ -4,8 +4,6 @@ import {
   Observable,
   filter,
   tap,
-  map,
-  merge,
   BehaviorSubject,
   takeUntil,
   Subscription,

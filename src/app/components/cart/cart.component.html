@@ -1,0 +1,29 @@
+<div class="cart-container">
+  <div (click)="showCart()">Cart</div>
+  <div *ngIf="cartItemsNumber$ | async as cartItemsNumber">
+    <p *ngIf="cartItemsNumber === 1">
+      {{ cartItemsNumber }}<span> item in the cart.</span>
+    </p>
+    <p *ngIf="cartItemsNumber > 1">
+      {{ cartItemsNumber }}<span> items in the cart.</span>
+    </p>
+  </div>
+
+  <div *ngIf="(cartItemsNumber$ | async) === 0">
+    <p>No items in the cart</p>
+  </div>
+
+  <div
+    class="cart-items"
+    *ngIf="isCartShown && (cartItemsNumber$ | async) !== 0"
+  >
+    Cart shown<span (click)="hideCart()">X</span>
+    <div *ngIf="cartItems$ | async as cartItems">
+      <div *ngFor="let item of cartItems">
+        <p>{{ item.title }}</p>
+        <p>{{ item.price }}</p>
+        <span (click)="deleteItem(item.id)">DEL</span>
+      </div>
+    </div>
+  </div>
+</div>

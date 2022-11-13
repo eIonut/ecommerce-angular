@@ -1,0 +1,14 @@
+.searched-product {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  &-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  &-container {
+    width: 200px;
+  }
+}

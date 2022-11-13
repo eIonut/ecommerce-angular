@@ -9,6 +9,7 @@ import {
   pluck,
   tap,
 } from 'rxjs';
+import { Product } from 'src/app/interfaces/product.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ import {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  public products$!: Observable<any>;
+  public products$!: Observable<Product[]>;
   public notFound = '';
   constructor(private httpService: HttpService) {}
 
