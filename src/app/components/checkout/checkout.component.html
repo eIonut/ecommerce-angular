@@ -1,11 +1,46 @@
-<div *ngIf="total$ | async as total">
-  <p>{{ total }}</p>
-</div>
-
-<div *ngIf="cartItems$ | async as cartItems">
-  <div *ngFor="let item of cartItems">
-    <p>{{ item.title }}</p>
-    <p>{{ item.price }}</p>
-    <img src="{{ item.thumbnail }}" alt="" />
+<div>
+  <div *ngIf="total$ | async as total">
+    <p>{{ total }}</p>
   </div>
+
+  <div *ngIf="cartItems$ | async as cartItems">
+    <div *ngFor="let item of cartItems">
+      <p>{{ item.title }}</p>
+      <p>{{ item.price }}</p>
+      <img src="{{ item.thumbnail }}" alt="" />
+    </div>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <input type="email" formControlName="email" />
+    <input type="text" formControlName="firstName" />
+    <input type="text" formControlName="lastName" />
+    <input type="text" formControlName="county" />
+    <input type="text" formControlName="city" />
+    <input type="text" formControlName="address" />
+    <input type="text" formControlName="phone" />
+
+    <h3>Shipment status</h3>
+    <input
+      type="radio"
+      formControlName="shipment"
+      name="shipment"
+      value="Cargus"
+    />
+    <br />
+    <input
+      type="radio"
+      formControlName="shipment"
+      name="shipment"
+      value="Fan courier"
+    />
+    <br />
+    <input
+      type="radio"
+      formControlName="shipment"
+      name="shipment"
+      value="GLS"
+    />
+
+    <button [disabled]="!form.valid">Submit</button>
+  </form>
 </div>

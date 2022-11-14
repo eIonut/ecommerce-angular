@@ -11,7 +11,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class SingleProductComponent implements OnInit {
   public product$!: Observable<Product>;
-  private id!: number;
+
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
@@ -19,6 +19,8 @@ export class SingleProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.cartService.productAddedPopUp.next(false);
+
     this.httpService.searchOnProduct.next(null);
 
     this.product$ = this.route.params.pipe(

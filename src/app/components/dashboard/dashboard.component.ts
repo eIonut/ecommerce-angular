@@ -10,6 +10,7 @@ import {
   tap,
 } from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,9 +20,13 @@ import { Product } from 'src/app/interfaces/product.interface';
 export class DashboardComponent implements OnInit {
   public products$!: Observable<Product[]>;
   public notFound = '';
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
+    this.cartService.productAddedPopUp.next(false);
     this.httpService.subject.next('');
     this.products$ = this.httpService.allProducts$.pipe(
       debounceTime(500),

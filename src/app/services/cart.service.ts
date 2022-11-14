@@ -22,6 +22,11 @@ export class CartService {
   public isCartOpenedObs$: Observable<boolean> =
     this.isCartOpened.asObservable();
 
+  public productAddedPopUp: BehaviorSubject<boolean> = new BehaviorSubject(
+    false
+  );
+  public productAddedPopUpObs$: Observable<boolean> =
+    this.productAddedPopUp.asObservable();
   constructor() {}
 
   public addToCart(product: Product) {
@@ -33,6 +38,9 @@ export class CartService {
 
     const updatedItems = [...this.cartItems$.getValue(), newProduct];
     this.cartItems$.next(updatedItems);
+    this.productAddedPopUp.next(true);
+
+    setTimeout(() => this.productAddedPopUp.next(false), 2000);
 
     const price = [...this.cartTotal$.getValue(), newProduct.price];
     const totalPrice = price.reduce(

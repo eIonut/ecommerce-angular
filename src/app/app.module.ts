@@ -14,6 +14,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchOnProductComponent } from './components/search-on-product/search-on-product.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartRouteGuard } from './guards/cart-route.guard';
+import { ItemAddedPopUpComponent } from './components/item-added-pop-up/item-added-pop-up.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,14 @@ import { CartRouteGuard } from './guards/cart-route.guard';
     NavbarComponent,
     SearchOnProductComponent,
     CheckoutComponent,
+    ItemAddedPopUpComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [CartRouteGuard],
   bootstrap: [AppComponent],
 })
