@@ -1,0 +1,11 @@
+<div *ngIf="total$ | async as total">
+  <p>{{ total }}</p>
+</div>
+
+<div *ngIf="cartItems$ | async as cartItems">
+  <div *ngFor="let item of cartItems">
+    <p>{{ item.title }}</p>
+    <p>{{ item.price }}</p>
+    <img src="{{ item.thumbnail }}" alt="" />
+  </div>
+</div>

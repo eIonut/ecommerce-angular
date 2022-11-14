@@ -26,10 +26,12 @@
         <span (click)="deleteItem(item.id)">DEL</span>
       </div>
 
-      <div *ngIf="cartTotal$ | async as cartTotal">
+      <div *ngIf="total$ | async as cartTotal">
         <p><strong>Total:</strong>{{ cartTotal | currency }}</p>
       </div>
-      <button>Proceed to checkout</button>
+
+      <div>{{ total }}</div>
+      <button [routerLink]="['/checkout']">Proceed to checkout</button>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, pluck, reduce } from 'rxjs';
+import { BehaviorSubject, map, Observable, pluck, reduce, filter } from 'rxjs';
 import { Product } from '../interfaces/product.interface';
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,13 @@ export class CartService {
   );
   public cartTotalObs$: Observable<number[]> = this.cartTotal$.asObservable();
 
+  public total$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public totalObs$: Observable<number> = this.total$.asObservable();
+
+  public isCartOpened: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public isCartOpenedObs$: Observable<boolean> =
+    this.isCartOpened.asObservable();
+
   constructor() {}
 
   public addToCart(product: Product) {
@@ -28,7 +35,11 @@ export class CartService {
     this.cartItems$.next(updatedItems);
 
     const price = [...this.cartTotal$.getValue(), newProduct.price];
-    this.cartTotal$.next(price);
+    const totalPrice = price.reduce(
+      (acc: number, val: number) => acc + val,
+      this.total$.getValue()
+    );
+    this.total$.next(totalPrice);
   }
 
   public getCartItems(): Observable<Product[]> {
@@ -40,5 +51,11 @@ export class CartService {
       .getValue()
       .filter((item) => item.id !== id);
     this.cartItems$.next(updatedItems);
+    const updatedPrice = updatedItems.map((item) => item.price);
+    const price = updatedPrice.reduce(
+      (acc: number, val: number) => acc + val,
+      0
+    );
+    this.total$.next(price);
   }
 }

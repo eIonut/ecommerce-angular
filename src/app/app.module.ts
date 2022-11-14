@@ -12,11 +12,24 @@ import { ProductInfoComponent } from './components/product-info/product-info.com
 import { CartComponent } from './components/cart/cart.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchOnProductComponent } from './components/search-on-product/search-on-product.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CartRouteGuard } from './guards/cart-route.guard';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, SearchProductComponent, ProductComponent, SingleProductComponent, ProductInfoComponent, CartComponent, NavbarComponent, SearchOnProductComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    SearchProductComponent,
+    ProductComponent,
+    SingleProductComponent,
+    ProductInfoComponent,
+    CartComponent,
+    NavbarComponent,
+    SearchOnProductComponent,
+    CheckoutComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [],
+  providers: [CartRouteGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

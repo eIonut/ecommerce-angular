@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  combineLatest,
   distinctUntilChanged,
   map,
   Observable,
@@ -7,6 +8,7 @@ import {
   reduce,
   scan,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
 import { CartService } from 'src/app/services/cart.service';
@@ -21,8 +23,8 @@ export class CartComponent implements OnInit {
   public zeroItems = false;
   public cartItems$!: Observable<Product[]>;
   public cartItemsNumber$!: Observable<number>;
-  public cartTotal$!: Observable<number>;
   public total!: number;
+  public total$!: Observable<number>;
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
@@ -32,20 +34,17 @@ export class CartComponent implements OnInit {
       distinctUntilChanged()
     );
 
-    this.cartTotal$ = this.cartService.cartTotalObs$.pipe(
-      map(
-        (item) => item.reduce((total, price) => total + price, 0),
-        tap((it) => console.log(it))
-      )
-    );
+    this.total$ = this.cartService.totalObs$;
   }
 
   public showCart(): void {
     this.isCartShown = !this.isCartShown;
+    this.cartService.isCartOpened.next(true);
   }
 
   public hideCart(): void {
     this.isCartShown = false;
+    this.cartService.isCartOpened.next(false);
   }
 
   public deleteItem(id: number): void {
