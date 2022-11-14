@@ -16,6 +16,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartRouteGuard } from './guards/cart-route.guard';
 import { ItemAddedPopUpComponent } from './components/item-added-pop-up/item-added-pop-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CanDeactivateGuard } from './guards/can-deactivate.guards';
+import { ComponentCanDeactivate } from './components/component-can-deactivate/component-can-deactivate.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [CartRouteGuard],
+  providers: [CartRouteGuard, CanDeactivateGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

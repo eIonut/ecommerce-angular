@@ -23,11 +23,21 @@ export class CheckoutComponent implements OnInit {
     phone: ['', [Validators.required]],
     shipment: ['', [Validators.required]],
   });
+  public isFormValid: any;
   constructor(private cartService: CartService, private fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isFormValid = false;
+  }
 
   onSubmit() {
     console.log(this.form.value);
+  }
+
+  canDeactivate(): boolean {
+    if (this.isFormValid) {
+      return true;
+    }
+    return false;
   }
 }
