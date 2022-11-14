@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { interval, Observable, take, tap } from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -12,6 +13,8 @@ import { CartService } from 'src/app/services/cart.service';
 export class CheckoutComponent implements OnInit {
   public total$: Observable<number> = this.cartService.totalObs$;
   public cartItems$: Observable<Product[]> = this.cartService.cartItemsObs$;
+  public isEditable = false;
+  public isLinear = true;
 
   public form = this.fb.group({
     email: ['', [Validators.required]],
@@ -23,8 +26,19 @@ export class CheckoutComponent implements OnInit {
     phone: ['', [Validators.required]],
     shipment: ['', [Validators.required]],
   });
+
+  public secondForm = this.fb.group({
+    cardNumber: ['', [Validators.required]],
+    nameOnCard: ['', [Validators.required]],
+    expiryDate: ['', [Validators.required]],
+    cvv: ['', [Validators.required]],
+  });
   public isFormValid: any;
-  constructor(private cartService: CartService, private fb: FormBuilder) {}
+  constructor(
+    private cartService: CartService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isFormValid = false;
@@ -39,5 +53,19 @@ export class CheckoutComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  public makePayment() {
+    interval(1000)
+      .pipe(
+        take(2),
+        tap(() => {
+          this.isFormValid = true;
+          this.router.navigate(['']);
+          this.cartService.cartItems$.next([]);
+          this.cartService.total$.next(0);
+        })
+      )
+      .subscribe();
   }
 }

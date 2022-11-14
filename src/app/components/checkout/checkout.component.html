@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <div *ngIf="total$ | async as total">
     <p>{{ total }}</p>
   </div>
@@ -44,3 +44,134 @@
     <button [disabled]="!form.valid">Submit</button>
   </form>
 </div>
+
+<button mat-raised-button (click)="isEditable = !isEditable">
+  {{ !isEditable ? "Enable edit mode" : "Disable edit mode" }}
+</button> -->
+
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="form">
+    <form [formGroup]="form">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="E-mail" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          formControlName="firstName"
+          placeholder="First name"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          formControlName="lastName"
+          placeholder="Last name"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>County</mat-label>
+        <input
+          matInput
+          formControlName="county"
+          placeholder="County"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" placeholder="City" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input
+          matInput
+          formControlName="address"
+          placeholder="Address"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" placeholder="Phone" required />
+      </mat-form-field>
+      <label id="example-radio-group-label">Pick your shipment</label>
+      <mat-radio-group
+        formControlName="shipment"
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+      >
+        <mat-radio-button class="example-radio-button" value="Cargus">
+          Cargus
+        </mat-radio-button>
+
+        <mat-radio-button class="example-radio-button" value="Sameday">
+          Sameday
+        </mat-radio-button>
+
+        <mat-radio-button class="example-radio-button" value="GLS">
+          GLS
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <div>
+        <button mat-button matStepperNext [disabled]="!form.valid">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- 2nd GROUP -->
+  <mat-step [stepControl]="secondForm">
+    <form [formGroup]="secondForm">
+      <ng-template matStepLabel>Payment informations</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Card Number</mat-label>
+        <input
+          matInput
+          formControlName="cardNumber"
+          placeholder="1234 5678 9012 3456"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Name on card</mat-label>
+        <input
+          matInput
+          formControlName="nameOnCard"
+          placeholder="Billy Joe"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Expiry date</mat-label>
+        <input
+          matInput
+          formControlName="expiryDate"
+          placeholder="04 / 24"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Security code</mat-label>
+        <input matInput formControlName="cvv" placeholder="***" required />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button (click)="makePayment()">Pay</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>

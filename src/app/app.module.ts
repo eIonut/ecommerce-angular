@@ -18,6 +18,11 @@ import { ItemAddedPopUpComponent } from './components/item-added-pop-up/item-add
 import { ReactiveFormsModule } from '@angular/forms';
 import { CanDeactivateGuard } from './guards/can-deactivate.guards';
 import { ComponentCanDeactivate } from './components/component-can-deactivate/component-can-deactivate.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -35,9 +40,14 @@ import { ComponentCanDeactivate } from './components/component-can-deactivate/co
   ],
   imports: [
     BrowserModule,
+    MatStepperModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    MatInputModule,
   ],
   providers: [CartRouteGuard, CanDeactivateGuard],
   bootstrap: [AppComponent],
