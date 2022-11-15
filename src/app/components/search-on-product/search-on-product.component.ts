@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -12,6 +13,7 @@ import {
 } from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
 import { HttpService } from 'src/app/services/http.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-search-on-product',
@@ -22,7 +24,11 @@ export class SearchOnProductComponent implements OnInit {
   public products$!: Observable<Product[]>;
   public notFound = '';
   public isEmpty = true;
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(
+    private httpService: HttpService,
+    private router: Router,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     this.products$ = this.httpService.singlePageProducts$.pipe(
@@ -33,6 +39,8 @@ export class SearchOnProductComponent implements OnInit {
       tap((it) => {
         if (!it.length) {
           this.notFound = 'No products found.';
+        } else {
+          this.productService.setIsHovered();
         }
       })
     );
@@ -53,5 +61,13 @@ export class SearchOnProductComponent implements OnInit {
   public navigateToProduct(item: Product) {
     console.log(item.id);
     this.router.navigate([[], item.id]);
+  }
+
+  displayItem() {
+    this.productService.setIsHovered();
+  }
+
+  hideItem() {
+    this.productService.setIsNotHovered();
   }
 }

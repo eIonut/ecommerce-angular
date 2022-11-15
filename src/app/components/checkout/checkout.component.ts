@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { interval, Observable, take, tap } from 'rxjs';
+import {
+  combineLatest,
+  concatMap,
+  interval,
+  Observable,
+  of,
+  switchMap,
+  take,
+  tap,
+  timer,
+} from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -15,7 +25,7 @@ export class CheckoutComponent implements OnInit {
   public cartItems$: Observable<Product[]> = this.cartService.cartItemsObs$;
   public isEditable = false;
   public isLinear = true;
-
+  public paymentIsFinished = false;
   public form = this.fb.group({
     email: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
@@ -56,16 +66,23 @@ export class CheckoutComponent implements OnInit {
   }
 
   public makePayment() {
-    interval(1000)
+    timer(2000)
       .pipe(
-        take(2),
         tap(() => {
-          this.isFormValid = true;
-          this.router.navigate(['']);
-          this.cartService.cartItems$.next([]);
-          this.cartService.total$.next(0);
-        })
+          this.paymentIsFinished = true;
+        }),
+        concatMap(() => afterPay$)
       )
       .subscribe();
+
+    const afterPay$ = timer(3000).pipe(
+      take(1),
+      tap((it) => {
+        this.isFormValid = true;
+        this.router.navigate(['']);
+        this.cartService.cartItems$.next([]);
+        this.cartService.total$.next(0);
+      })
+    );
   }
 }

@@ -5,6 +5,7 @@ import { SingleProductComponent } from './components/single-product/single-produ
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartRouteGuard } from './guards/cart-route.guard';
 import { CanDeactivateGuard } from './guards/can-deactivate.guards';
+
 const routes: Routes = [
   { path: '', component: DashboardComponent, pathMatch: 'full' },
   {

@@ -18,3 +18,7 @@
     width: 200px;
   }
 }
+
+:host ::ng-deep {
+  background: red !important;
+}

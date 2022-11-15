@@ -17,12 +17,13 @@ import { CartRouteGuard } from './guards/cart-route.guard';
 import { ItemAddedPopUpComponent } from './components/item-added-pop-up/item-added-pop-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CanDeactivateGuard } from './guards/can-deactivate.guards';
-import { ComponentCanDeactivate } from './components/component-can-deactivate/component-can-deactivate.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatRadioModule } from '@angular/material/radio';
     SearchOnProductComponent,
     CheckoutComponent,
     ItemAddedPopUpComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatRadioModule,
     MatInputModule,
+    MatProgressSpinnerModule,
   ],
   providers: [CartRouteGuard, CanDeactivateGuard],
   bootstrap: [AppComponent],
