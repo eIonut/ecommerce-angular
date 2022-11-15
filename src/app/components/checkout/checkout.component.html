@@ -1,21 +1,23 @@
 <div *ngIf="!paymentIsFinished">
   <div>
     <div *ngIf="total$ | async as total">
-      <p>{{ total }}</p>
+      <p>Total: {{ total | currency }}</p>
     </div>
 
     <div *ngIf="cartItems$ | async as cartItems">
       <div *ngFor="let item of cartItems">
         <p>{{ item.title }}</p>
-        <p>{{ item.price }}</p>
+        <p>{{ item.price | currency }}</p>
         <img src="{{ item.thumbnail }}" alt="" />
       </div>
     </div>
 
-    <mat-stepper [linear]="isLinear" #stepper>
+    <mat-stepper [linear]="isLinear" #stepper color="primary">
       <mat-step [stepControl]="form">
         <form [formGroup]="form">
-          <ng-template matStepLabel>Fill out your name</ng-template>
+          <ng-template matStepLabel
+            ><p class="stepper-label">Personal informations</p></ng-template
+          >
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input
@@ -84,22 +86,38 @@
               required
             />
           </mat-form-field>
-          <label id="example-radio-group-label">Pick your shipment</label>
+          <br />
+          <label id="example-radio-group-label">Pick your shipment:</label>
+          <br />
+
           <mat-radio-group
             formControlName="shipment"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
           >
-            <mat-radio-button class="example-radio-button" value="Cargus">
-              Cargus
-            </mat-radio-button>
+            <label id="example-radio-group-label">Cargus</label>
 
-            <mat-radio-button class="example-radio-button" value="Sameday">
-              Sameday
+            <mat-radio-button
+              class="example-radio-button"
+              color="primary"
+              value="Cargus"
+            >
             </mat-radio-button>
+            <label id="example-radio-group-label">Sameday</label>
 
-            <mat-radio-button class="example-radio-button" value="GLS">
-              GLS
+            <mat-radio-button
+              class="example-radio-button"
+              color="primary"
+              value="Sameday"
+            >
+            </mat-radio-button>
+            <label id="example-radio-group-label">GLS</label>
+
+            <mat-radio-button
+              class="example-radio-button"
+              color="primary"
+              value="GLS"
+            >
             </mat-radio-button>
           </mat-radio-group>
 
@@ -113,7 +131,7 @@
       <!-- 2nd GROUP -->
       <mat-step [stepControl]="secondForm">
         <form [formGroup]="secondForm">
-          <ng-template matStepLabel>Payment informations</ng-template>
+          <ng-template matStepLabel>Card informations</ng-template>
           <mat-form-field appearance="fill">
             <mat-label>Card Number</mat-label>
             <input

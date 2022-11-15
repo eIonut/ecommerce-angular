@@ -1,0 +1,37 @@
+mat-stepper {
+  background-color: rgb(241, 216, 216);
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+mat-form-field {
+  width: 400px;
+  color: black;
+}
+
+mat-label {
+  color: black;
+  font-weight: bold;
+}
+
+.stepper-label {
+  color: red;
+}
+
+.mat-step-header {
+  color: black;
+  background-color: black;
+}
+
+mat-step {
+  background: greenyellow;
+  color: green;
+}
+
+.mat-step-text-label {
+  color: black;
+}
