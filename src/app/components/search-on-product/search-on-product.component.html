@@ -1,4 +1,21 @@
-<input class="search-input" type="text" (keyup)="searchProduct($event)" />
+<div class="input-container">
+  <form>
+    <input
+      #search
+      class="search-input"
+      type="text"
+      (keyup)="searchProduct($event)"
+    />
+    <span *ngIf="!(isHovered$ | async)" (click)="clearInput()">X</span>
+    <span (click)="hideItem()" *ngIf="isHovered$ | async">X</span>
+    <mat-spinner
+      *ngIf="httpLoading"
+      [diameter]="20"
+      color="primary"
+    ></mat-spinner>
+  </form>
+</div>
+
 <p
   class="no-product-found-p"
   *ngIf="(products$ | async)?.length == 0 && !isEmpty"
@@ -6,14 +23,14 @@
   {{ notFound }}
 </p>
 <div class="searched-product-container" *ngIf="products$ | async as products">
-  <div
-    (mouseenter)="displayItem()"
-    (mouseleave)="hideItem()"
-    class="searched-product"
-    (click)="navigateToProduct(item)"
-    *ngFor="let item of products"
-  >
-    <h4>{{ item.title }}</h4>
-    <img class="searched-product-img" src="{{ item.thumbnail }}" alt="" />
+  <div *ngIf="isHovered$ | async">
+    <div
+      class="searched-product"
+      (click)="navigateToProduct(item)"
+      *ngFor="let item of products"
+    >
+      <h4>{{ item.title }}</h4>
+      <img class="searched-product-img" src="{{ item.thumbnail }}" alt="" />
+    </div>
   </div>
 </div>

@@ -1,5 +1,4 @@
-import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   debounceTime,
@@ -7,7 +6,6 @@ import {
   empty,
   Observable,
   pluck,
-  startWith,
   switchMap,
   tap,
 } from 'rxjs';
@@ -24,6 +22,9 @@ export class SearchOnProductComponent implements OnInit {
   public products$!: Observable<Product[]>;
   public notFound = '';
   public isEmpty = true;
+  public httpLoading = false;
+  public isHovered$ = this.productService.isHovered$;
+  @ViewChild('search') searchInput!: ElementRef<HTMLInputElement>;
   constructor(
     private httpService: HttpService,
     private router: Router,
@@ -38,8 +39,12 @@ export class SearchOnProductComponent implements OnInit {
       pluck('products'),
       tap((it) => {
         if (!it.length) {
+          this.productService.setIsNotHovered();
+
           this.notFound = 'No products found.';
         } else {
+          this.httpLoading = true;
+          setTimeout(() => (this.httpLoading = false), 500);
           this.productService.setIsHovered();
         }
       })
@@ -63,11 +68,13 @@ export class SearchOnProductComponent implements OnInit {
     this.router.navigate([[], item.id]);
   }
 
-  displayItem() {
-    this.productService.setIsHovered();
+  hideItem() {
+    this.searchInput.nativeElement.value = '';
+    this.productService.setIsNotHovered();
   }
 
-  hideItem() {
-    this.productService.setIsNotHovered();
+  clearInput() {
+    this.searchInput.nativeElement.value = '';
+    this.notFound = '';
   }
 }

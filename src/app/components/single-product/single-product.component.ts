@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap, tap } from 'rxjs';
+import { fromEvent, mergeMap, Observable, switchMap, tap } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { Product } from 'src/app/interfaces/product.interface';
 import { CartService } from 'src/app/services/cart.service';
@@ -22,6 +22,10 @@ export class SingleProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    fromEvent(document, 'click')
+      .pipe(tap(() => this.productService.setIsNotHovered()))
+      .subscribe(console.log);
+
     this.cartService.productAddedPopUp.next(false);
 
     this.httpService.searchOnProduct.next(null);

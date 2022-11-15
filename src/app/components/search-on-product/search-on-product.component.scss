@@ -19,6 +19,13 @@
   }
 }
 
-:host ::ng-deep {
-  background: red !important;
+.input-container {
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+mat-spinner {
+  width: 100%;
 }
