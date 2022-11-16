@@ -1,3 +1,10 @@
-<div class="pop-up" *ngIf="showAddedPopUp | async as showPopUp">
+<div
+  class="pop-up"
+  *ngIf="showAddedPopUp | async as showPopUp"
+  data-aos="fade-zoom-in"
+  data-aos-easing="ease-in-back"
+  data-aos-delay="300"
+  data-aos-offset="0"
+>
   <p>Successfully added item</p>
 </div>

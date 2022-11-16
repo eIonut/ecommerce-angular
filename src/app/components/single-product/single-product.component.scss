@@ -6,4 +6,5 @@
   background-color: gray;
   opacity: 0.5;
   backdrop-filter: grayscale(1) blur(5px);
+  pointer-events: none;
 }

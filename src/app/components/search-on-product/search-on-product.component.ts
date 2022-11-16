@@ -40,7 +40,6 @@ export class SearchOnProductComponent implements OnInit {
       tap((it) => {
         if (!it.length) {
           this.productService.setIsNotHovered();
-
           this.notFound = 'No products found.';
         } else {
           this.httpLoading = true;

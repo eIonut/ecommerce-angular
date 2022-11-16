@@ -24,7 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +51,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     MatRadioModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatIconModule,
   ],
   providers: [CartRouteGuard, CanDeactivateGuard],
   bootstrap: [AppComponent],

@@ -1,13 +1,18 @@
 <div class="cart-container">
-  <div>Cart</div>
-  <span *ngIf="(cartItemsNumber$ | async) !== 0" (click)="showCart()">^</span>
-  <div *ngIf="cartItemsNumber$ | async as cartItemsNumber">
-    <p *ngIf="cartItemsNumber === 1">
-      {{ cartItemsNumber }}<span> item in the cart.</span>
-    </p>
-    <p *ngIf="cartItemsNumber > 1">
-      {{ cartItemsNumber }}<span> items in the cart.</span>
-    </p>
+  <mat-icon>shopping_cart</mat-icon>
+  <span
+    *ngIf="(cartItemsNumber$ | async) !== 0 && !isCartShown"
+    (click)="showCart()"
+    ><mat-icon class="cart-arrow">keyboard_arrow_down</mat-icon></span
+  >
+
+  <span
+    *ngIf="(cartItemsNumber$ | async) !== 0 && isCartShown"
+    (click)="showCart()"
+    ><mat-icon class="cart-arrow">keyboard_arrow_up</mat-icon></span
+  >
+  <div class="cart-number" *ngIf="cartItemsNumber$ | async as cartItemsNumber">
+    <span>{{ cartItemsNumber }}</span>
   </div>
 
   <div *ngIf="(cartItemsNumber$ | async) === 0">
@@ -15,11 +20,11 @@
   </div>
 
   <div
+    data-aos="fade-right"
     class="cart-items"
     *ngIf="isCartShown && (cartItemsNumber$ | async) !== 0"
   >
-    Cart shown<span (click)="hideCart()">X</span>
-    <div *ngIf="cartItems$ | async as cartItems">
+    <div class="cart-items-container" *ngIf="cartItems$ | async as cartItems">
       <div *ngFor="let item of cartItems">
         <p>{{ item.title }}</p>
         <p>{{ item.price | currency }}</p>
@@ -31,7 +36,9 @@
       </div>
 
       <div>{{ total }}</div>
-      <button [routerLink]="['/checkout']">Proceed to checkout</button>
     </div>
+    <button class="proceed-button" [routerLink]="['/checkout']">
+      Proceed to checkout
+    </button>
   </div>
 </div>

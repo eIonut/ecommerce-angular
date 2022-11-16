@@ -7,6 +7,8 @@
 
   <div class="product-container" *ngIf="products$ | async as products">
     <app-product
+      data-aos="fade-up"
+      data-aos-duration="1000"
       *ngFor="let item of products"
       [id]="item.id"
       [price]="item.price"

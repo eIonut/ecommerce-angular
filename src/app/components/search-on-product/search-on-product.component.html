@@ -6,7 +6,7 @@
       type="text"
       (keyup)="searchProduct($event)"
     />
-    <span *ngIf="!(isHovered$ | async)" (click)="clearInput()">X</span>
+    <!-- <span *ngIf="!(isHovered$ | async)" (click)="clearInput()">XD</span> -->
     <span (click)="hideItem()" *ngIf="isHovered$ | async">X</span>
     <mat-spinner
       *ngIf="httpLoading"
